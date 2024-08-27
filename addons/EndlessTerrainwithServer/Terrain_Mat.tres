@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://cc1ge3vxbnxu7"]
+
+[ext_resource type="Shader" path="res://ground.gdshader" id="1_atpgb"]
+
+[sub_resource type="Gradient" id="Gradient_12ikn"]
+offsets = PackedFloat32Array(0, 0.470149, 1)
+colors = PackedColorArray(0, 0.409008, 1.54018e-06, 1, 0.0503347, 0.936949, 0.0502919, 1, 0.347487, 0.319995, 0.19052, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8vcql"]
+gradient = SubResource("Gradient_12ikn")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_atpgb")
+shader_parameter/min_height = 0.0
+shader_parameter/max_height = 60.0
+shader_parameter/terrain_color = SubResource("GradientTexture2D_8vcql")

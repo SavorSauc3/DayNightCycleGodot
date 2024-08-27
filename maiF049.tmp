@@ -1,0 +1,116 @@
+[gd_scene load_steps=19 format=3 uid="uid://dkb77wf7gqwyi"]
+
+[ext_resource type="Shader" path="res://addons/GodotStylizedSkyShader/SkyShader/StylizedSky.gdshader" id="3_15odj"]
+[ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://addons/fpc/character.tscn" id="4_0wx6w"]
+[ext_resource type="Texture2D" uid="uid://cyiafa1idccft" path="res://addons/GodotStylizedSkyShader/Voronoi.png" id="5_37rt5"]
+[ext_resource type="Texture2D" uid="uid://cob2w8tbmbfw3" path="res://addons/GodotStylizedSkyShader/base_noise.png" id="5_mowfe"]
+[ext_resource type="Texture2D" uid="uid://c6njvhgbifpqj" path="res://addons/GodotStylizedSkyShader/distort.png" id="6_ebky5"]
+[ext_resource type="Texture2D" uid="uid://d62ker40j6xf" path="res://nightskycolor.png" id="8_n1es8"]
+[ext_resource type="Script" path="res://sky.gd" id="9_8dosd"]
+[ext_resource type="PackedScene" uid="uid://covl05idbkk7s" path="res://addons/EndlessTerrainwithServer/ServerTerrain.tscn" id="9_jfcx1"]
+[ext_resource type="PackedScene" uid="uid://clmb53qupn6ly" path="res://ui.tscn" id="9_y5es4"]
+[ext_resource type="Shader" path="res://grass_shader.gdshader" id="10_57ic4"]
+[ext_resource type="Script" path="res://grass.gd" id="10_xn7om"]
+[ext_resource type="ArrayMesh" uid="uid://bmtade1qwwjnq" path="res://GrassMesh.res" id="11_4rd5o"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kqili"]
+shader = ExtResource("3_15odj")
+shader_parameter/offset_horizon = 0.3
+shader_parameter/horizon_intensity = -3.0
+shader_parameter/sun_set = Color(1, 0.8, 1, 1)
+shader_parameter/horizon_color_day = Color(2.40654e-07, 0.357825, 0.454392, 1)
+shader_parameter/horizon_color_night = Color(0.00491754, 0.0996403, 0.36485, 1)
+shader_parameter/sun_color = Color(10, 8, 1, 1)
+shader_parameter/sun_radius = 0.2
+shader_parameter/flat_sun = true
+shader_parameter/moon_color = Color(1, 0.95, 0.7, 1)
+shader_parameter/moon_radius = 0.15
+shader_parameter/moon_crescent = -0.085
+shader_parameter/dark_falloff = 1.0
+shader_parameter/enable_horizon_fade = false
+shader_parameter/horizon_fade_size = 0.3
+shader_parameter/horizon_fade_blend = 0.2
+shader_parameter/day_bottom_color = Color(0.4, 0.8, 1, 1)
+shader_parameter/day_top_color = Color(0.1, 0.6, 1, 1)
+shader_parameter/night_bottom_color = Color(1.20327e-08, 0.0756925, 0.26081, 1)
+shader_parameter/night_top_color = Color(0.02, 0, 0.04, 1)
+shader_parameter/stars_speed = 0.3
+shader_parameter/stars_cutoff = 0.3
+shader_parameter/stars_sky_color = Color(0, 0, 0, 1)
+shader_parameter/cloud_edge_day_color = Color(0.9, 0.9, 0.9, 1)
+shader_parameter/cloud_main_day_color = Color(1, 1, 1, 1)
+shader_parameter/cloud_edge_night_color = Color(0.621524, 0.621524, 0.621524, 1)
+shader_parameter/cloud_main_night_color = Color(0.340339, 0.340339, 0.340339, 1)
+shader_parameter/cloud_speed_1 = 0.01
+shader_parameter/cloud_speed_2 = 0.02
+shader_parameter/cloud_speed_3 = 0.03
+shader_parameter/cloud_scale_1 = 0.8
+shader_parameter/cloud_scale_2 = 0.074
+shader_parameter/cloud_scale_3 = 0.01
+shader_parameter/cloud_distortion = 1.0
+shader_parameter/cloud_strength = 1.0
+shader_parameter/cloud_cutoff = 0.2
+shader_parameter/cloud_fuzziness = 0.2
+shader_parameter/stars_texture = ExtResource("8_n1es8")
+shader_parameter/base_noise = ExtResource("5_mowfe")
+shader_parameter/cloud_noise1 = ExtResource("6_ebky5")
+shader_parameter/cloud_noise2 = ExtResource("5_37rt5")
+
+[sub_resource type="Sky" id="Sky_5hrqg"]
+sky_material = SubResource("ShaderMaterial_kqili")
+
+[sub_resource type="Environment" id="Environment_sde7l"]
+background_mode = 2
+sky = SubResource("Sky_5hrqg")
+fog_sky_affect = 0.425
+fog_height = -60.23
+volumetric_fog_density = 0.0079
+volumetric_fog_emission_energy = 1.65
+volumetric_fog_length = 96.34
+volumetric_fog_ambient_inject = 0.66
+volumetric_fog_sky_affect = 0.34
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8mahc"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_eet0i"]
+width = 1024
+height = 1024
+noise = SubResource("FastNoiseLite_8mahc")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vv67b"]
+render_priority = 0
+shader = ExtResource("10_57ic4")
+shader_parameter/top_color = Color(0.666667, 0.862745, 0, 1)
+shader_parameter/bottom_color = Color(0.56802, 0.672463, 1.92523e-06, 1)
+shader_parameter/ambient_occlusion_factor = 0.3
+shader_parameter/specular_strength = 0.4
+shader_parameter/player_displacement_strength = 0.4
+shader_parameter/player_displacement_size = 1.0
+shader_parameter/wind_direction = Vector3(1, 2, 3)
+shader_parameter/wind_strength = 0.3
+shader_parameter/wind_noise_size = 0.05
+shader_parameter/wind_noise_speed = 0.1
+shader_parameter/wind_noise = SubResource("NoiseTexture2D_eet0i")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.176002, -0.98439, 0, 0.98439, -0.176002, -15.3327, 16.0614, 18.9138)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sde7l")
+script = ExtResource("9_8dosd")
+
+[node name="Character" parent="." instance=ExtResource("4_0wx6w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.3617, 26.633, 5.93058)
+
+[node name="UI" parent="." instance=ExtResource("9_y5es4")]
+
+[node name="ServerTerrain" parent="." instance=ExtResource("9_jfcx1")]
+
+[node name="GrassMeshInstance3D" type="MultiMeshInstance3D" parent="." node_paths=PackedStringArray("terrain_node")]
+material_override = SubResource("ShaderMaterial_vv67b")
+script = ExtResource("10_xn7om")
+terrain_node = NodePath("../ServerTerrain")
+grass_mesh = ExtResource("11_4rd5o")
+grass_density = null

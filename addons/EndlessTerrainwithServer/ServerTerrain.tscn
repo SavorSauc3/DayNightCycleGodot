@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://covl05idbkk7s"]
+
+[ext_resource type="Script" path="res://addons/EndlessTerrainwithServer/ServerTerrain.gd" id="1_1xsjy"]
+[ext_resource type="Material" uid="uid://cc1ge3vxbnxu7" path="res://addons/EndlessTerrainwithServer/Terrain_Mat.tres" id="2_sawtb"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_dqh0t"]
+
+[node name="ServerTerrain" type="Node3D"]
+script = ExtResource("1_1xsjy")
+Terrain_Size = 400
+resolution = 50
+Terrain_Max_Height = 30
+material = ExtResource("2_sawtb")
+noise = SubResource("FastNoiseLite_dqh0t")

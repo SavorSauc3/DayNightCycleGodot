@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://deedmopkw842h"]
+
+[ext_resource type="Script" path="res://addons/EndlessTerrainwithServer/InfiniteTerrainServer.gd" id="1_4q4eh"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_itf6b"]
+noise_type = 3
+frequency = 0.014
+
+[node name="InfiniteTerrainServer" type="Node3D"]
+script = ExtResource("1_4q4eh")
+chunkSize = 200
+terrain_height = 30
+view_distance = 1000
+noise = SubResource("FastNoiseLite_itf6b")
+use_threads = true

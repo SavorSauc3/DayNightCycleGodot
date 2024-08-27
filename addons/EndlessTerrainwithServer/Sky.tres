@@ -1,0 +1,6 @@
+[gd_resource type="Sky" load_steps=2 format=3 uid="uid://dp1bpyttxenpf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wpmqb"]
+
+[resource]
+sky_material = SubResource("ShaderMaterial_wpmqb")

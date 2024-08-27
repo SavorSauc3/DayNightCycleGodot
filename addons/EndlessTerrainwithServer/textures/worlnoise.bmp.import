@@ -1,0 +1,26 @@
+[remap]
+
+importer="3d_texture"
+type="CompressedTexture3D"
+uid="uid://bj00nf03tuis2"
+path="res://.godot/imported/worlnoise.bmp-35c59eb5a4e189ac21d8df001ada11e9.ctex3d"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://addons/EndlessTerrainwithServer/textures/worlnoise.bmp"
+dest_files=["res://.godot/imported/worlnoise.bmp-35c59eb5a4e189ac21d8df001ada11e9.ctex3d"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+slices/horizontal=8
+slices/vertical=8

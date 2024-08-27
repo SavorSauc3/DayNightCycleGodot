@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bufshbvqdotx5"]
+
+[ext_resource type="Script" path="res://test_2.gd" id="1_yad7b"]
+[ext_resource type="Script" path="res://cameraMove.gd" id="2_tcd1h"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_yad7b")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16, 2)
+fov = 90.0
+script = ExtResource("2_tcd1h")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]

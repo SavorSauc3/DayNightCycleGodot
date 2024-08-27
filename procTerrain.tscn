@@ -1,0 +1,26 @@
+[gd_scene load_steps=7 format=3 uid="uid://d4l8o5dypf18g"]
+
+[ext_resource type="Script" path="res://terrain.gd" id="1_sbhqf"]
+[ext_resource type="Shader" path="res://ground.gdshader" id="2_us80d"]
+
+[sub_resource type="Gradient" id="Gradient_d7re6"]
+colors = PackedColorArray(0, 0.466667, 0, 1, 0, 0.466667, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_p53xa"]
+gradient = SubResource("Gradient_d7re6")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_duqsd"]
+render_priority = 0
+shader = ExtResource("2_us80d")
+shader_parameter/min_height = 0.0
+shader_parameter/max_height = 20.0
+shader_parameter/terrain_color = SubResource("GradientTexture1D_p53xa")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_20fid"]
+seed = 350
+
+[node name="ProcTerrain" type="Node3D"]
+script = ExtResource("1_sbhqf")
+Terrain_Max_Height = 20
+material = SubResource("ShaderMaterial_duqsd")
+noise = SubResource("FastNoiseLite_20fid")

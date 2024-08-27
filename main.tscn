@@ -1,0 +1,175 @@
+[gd_scene load_steps=30 format=3 uid="uid://dkb77wf7gqwyi"]
+
+[ext_resource type="Shader" path="res://addons/GodotStylizedSkyShader/SkyShader/StylizedSky.gdshader" id="3_15odj"]
+[ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://addons/fpc/character.tscn" id="4_0wx6w"]
+[ext_resource type="Texture2D" uid="uid://cyiafa1idccft" path="res://addons/GodotStylizedSkyShader/Voronoi.png" id="5_37rt5"]
+[ext_resource type="Texture2D" uid="uid://cob2w8tbmbfw3" path="res://addons/GodotStylizedSkyShader/base_noise.png" id="5_mowfe"]
+[ext_resource type="Texture2D" uid="uid://c6njvhgbifpqj" path="res://addons/GodotStylizedSkyShader/distort.png" id="6_ebky5"]
+[ext_resource type="Texture2D" uid="uid://d62ker40j6xf" path="res://nightskycolor.png" id="8_n1es8"]
+[ext_resource type="Script" path="res://sky.gd" id="9_8dosd"]
+[ext_resource type="PackedScene" uid="uid://clmb53qupn6ly" path="res://ui.tscn" id="9_y5es4"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter.gd" id="10_50e1g"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="11_dnlt8"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/base_modifier.gd" id="12_ec1vm"]
+[ext_resource type="PackedScene" uid="uid://d4l8o5dypf18g" path="res://procTerrain.tscn" id="12_hgj4w"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/create_inside_random.gd" id="13_mn0w6"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/randomize_transforms.gd" id="14_tad3h"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/relax.gd" id="15_w0xk0"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/project_on_geometry.gd" id="16_jyomw"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_item.gd" id="17_eiyxf"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_shape.gd" id="18_proqs"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/box_shape.gd" id="19_helqp"]
+[ext_resource type="Script" path="res://grassSpawner.gd" id="20_cyxsa"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kqili"]
+shader = ExtResource("3_15odj")
+shader_parameter/offset_horizon = 0.5
+shader_parameter/horizon_intensity = -3.0
+shader_parameter/sun_set = Color(0.915796, 0.876901, 0.999436, 1)
+shader_parameter/horizon_color_day = Color(2.40654e-07, 0.357825, 0.454392, 1)
+shader_parameter/horizon_color_night = Color(0.00491754, 0.0996403, 0.36485, 1)
+shader_parameter/sun_color = Color(10, 8, 1, 1)
+shader_parameter/sun_radius = 0.2
+shader_parameter/flat_sun = true
+shader_parameter/moon_color = Color(1, 0.95, 0.7, 1)
+shader_parameter/moon_radius = 0.15
+shader_parameter/moon_crescent = -0.085
+shader_parameter/dark_falloff = 1.0
+shader_parameter/enable_horizon_fade = false
+shader_parameter/horizon_fade_size = 0.3
+shader_parameter/horizon_fade_blend = 0.2
+shader_parameter/day_bottom_color = Color(0.4, 0.8, 1, 1)
+shader_parameter/day_top_color = Color(0.1, 0.6, 1, 1)
+shader_parameter/night_bottom_color = Color(1.20327e-08, 0.0756925, 0.26081, 1)
+shader_parameter/night_top_color = Color(0.02, 0, 0.04, 1)
+shader_parameter/stars_speed = 0.3
+shader_parameter/stars_cutoff = 0.3
+shader_parameter/stars_sky_color = Color(0, 0, 0, 1)
+shader_parameter/cloud_edge_day_color = Color(0.9, 0.9, 0.9, 1)
+shader_parameter/cloud_main_day_color = Color(1, 1, 1, 1)
+shader_parameter/cloud_edge_night_color = Color(0.621524, 0.621524, 0.621524, 1)
+shader_parameter/cloud_main_night_color = Color(0.340339, 0.340339, 0.340339, 1)
+shader_parameter/cloud_speed_1 = 0.01
+shader_parameter/cloud_speed_2 = 0.02
+shader_parameter/cloud_speed_3 = 0.03
+shader_parameter/cloud_scale_1 = 0.8
+shader_parameter/cloud_scale_2 = 0.074
+shader_parameter/cloud_scale_3 = 0.01
+shader_parameter/cloud_distortion = 1.0
+shader_parameter/cloud_strength = 1.0
+shader_parameter/cloud_cutoff = 0.2
+shader_parameter/cloud_fuzziness = 0.2
+shader_parameter/stars_texture = ExtResource("8_n1es8")
+shader_parameter/base_noise = ExtResource("5_mowfe")
+shader_parameter/cloud_noise1 = ExtResource("6_ebky5")
+shader_parameter/cloud_noise2 = ExtResource("5_37rt5")
+
+[sub_resource type="Sky" id="Sky_5hrqg"]
+sky_material = SubResource("ShaderMaterial_kqili")
+
+[sub_resource type="Environment" id="Environment_sde7l"]
+background_mode = 2
+sky = SubResource("Sky_5hrqg")
+fog_sky_affect = 0.425
+fog_height = -60.23
+volumetric_fog_density = 0.0079
+volumetric_fog_emission_energy = 1.65
+volumetric_fog_length = 96.34
+volumetric_fog_ambient_inject = 0.66
+volumetric_fog_sky_affect = 0.34
+
+[sub_resource type="Resource" id="Resource_aeuyk"]
+script = ExtResource("13_mn0w6")
+amount = 18000
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = true
+reference_frame = 1
+
+[sub_resource type="Resource" id="Resource_lntit"]
+script = ExtResource("14_tad3h")
+position = Vector3(0.15, 0.15, 0.15)
+rotation = Vector3(20, 360, 20)
+scale = Vector3(0.1, 0.1, 0.1)
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = false
+reference_frame = 2
+
+[sub_resource type="Resource" id="Resource_waepo"]
+script = ExtResource("15_w0xk0")
+iterations = 3
+offset_step = 0.2
+consecutive_step_multiplier = 0.75
+use_computeshader = true
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = true
+reference_frame = 0
+
+[sub_resource type="Resource" id="Resource_xgqc5"]
+script = ExtResource("16_jyomw")
+ray_direction = Vector3(0, -1, 0)
+ray_length = 5.0
+ray_offset = 5.0
+remove_points_on_miss = false
+align_with_collision_normal = false
+max_slope = 90.0
+collision_mask = 1
+exclude_mask = 0
+enabled = true
+override_global_seed = false
+custom_seed = 0
+restrict_height = false
+reference_frame = 0
+
+[sub_resource type="Resource" id="Resource_yaxhq"]
+script = ExtResource("11_dnlt8")
+stack = Array[ExtResource("12_ec1vm")]([SubResource("Resource_aeuyk"), SubResource("Resource_lntit"), SubResource("Resource_waepo"), SubResource("Resource_xgqc5")])
+
+[sub_resource type="Resource" id="Resource_ndcwq"]
+script = ExtResource("19_helqp")
+size = Vector3(1, 1, 0.36336)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.176002, -0.98439, 0, 0.98439, -0.176002, -15.3327, 16.0614, 18.9138)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sde7l")
+script = ExtResource("9_8dosd")
+
+[node name="Character" parent="." instance=ExtResource("4_0wx6w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.3617, 26.633, 5.93058)
+
+[node name="ProcTerrain" parent="." instance=ExtResource("12_hgj4w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.23469, 0, -0.868784)
+Terrain_Size = 65
+resolution = 100
+Terrain_Max_Height = 18
+
+[node name="GrassSpawner" type="Node3D" parent="." node_paths=PackedStringArray("terrain_node")]
+script = ExtResource("20_cyxsa")
+terrain_node = NodePath("../ProcTerrain")
+
+[node name="ProtonScatter" type="Node3D" parent="GrassSpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.23469, -2.77708, 0.118734)
+script = ExtResource("10_50e1g")
+modifier_stack = SubResource("Resource_yaxhq")
+Performance/use_chunks = true
+Performance/chunk_dimensions = Vector3(30, 30, 30)
+
+[node name="ScatterItem" type="Node3D" parent="GrassSpawner/ProtonScatter"]
+script = ExtResource("17_eiyxf")
+path = "res://grassClump.tscn"
+
+[node name="ScatterShape" type="Node3D" parent="GrassSpawner/ProtonScatter"]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, -7, -31)
+script = ExtResource("18_proqs")
+shape = SubResource("Resource_ndcwq")
+
+[node name="UI" parent="." instance=ExtResource("9_y5es4")]

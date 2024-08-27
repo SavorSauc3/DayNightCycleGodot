@@ -1,0 +1,26 @@
+[remap]
+
+importer="3d_texture"
+type="CompressedTexture3D"
+uid="uid://bo3e8wav2xdpd"
+path="res://.godot/imported/perlworlnoise.tga-e715e7e80cb149eb092230667b496a11.ctex3d"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://addons/EndlessTerrainwithServer/textures/perlworlnoise.tga"
+dest_files=["res://.godot/imported/perlworlnoise.tga-e715e7e80cb149eb092230667b496a11.ctex3d"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+slices/horizontal=8
+slices/vertical=8
